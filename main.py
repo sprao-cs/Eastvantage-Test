@@ -1,5 +1,5 @@
-from employee import Employee
-from department import Department
+from EMS.employee import Employee
+from EMS.department import Department
 
 from pyfiglet import figlet_format
 
@@ -16,7 +16,7 @@ def remove_department(department_name):
     del company[department_name]
 
 def get_dept_list():
-    print_list = [f"[*] {dept}" for dept in company.keys()]
+    print_list = [f"\t[:] {dept}" for dept in company.keys()]
     dept_list = list(company.keys())
     return print_list, dept_list
 
@@ -40,6 +40,7 @@ def add_employee():
     print(f'{":"*50}\n')
     dept_print, dept_list = get_dept_list()
     print("\n".join(dept_print))
+    print(f'\n{":"*50}')
     while True:
         emp_dept = input("\n[+] Please Enter the Employee's Department: ")
         if emp_dept not in dept_list:
@@ -54,10 +55,10 @@ def add_employee():
 
 def display_employees():
     for department_name, department in company.items():
-        print(f"\n[-] Department: {department_name}")
         employees = department.list_employees()
 
         if len(employees) != 0:
+            print(f"\n[-] Department: {department_name}")
             max_name_width = max(len(emp['name']) for emp in employees)
             header_string= f"| {'Name':^{max_name_width}} | {'ID':^{10}} | {'Title':^{20}} |"
             print(header_string + '\n' + '-'*len(header_string))
@@ -66,7 +67,20 @@ def display_employees():
                 print(f"| {emp['name']:^{max_name_width}} | {emp['id']:^{10}} | {emp['title']:^{20}} |")
             
         else:
-            print("[X] Sorry! Currently there is no Employees List available for this Department.")
+            continue
+            # print("[X] Sorry! Currently there is no Employees List available for this Department.")
+
+def remove_employee_by_id():
+    employee_id = input("[+] Please Enter the Employee's ID to be removed: ")
+
+    for department_name, department in company.items():
+        emp_list = department.list_employees()
+        if employee_id in [emp['id'] for emp in emp_list]:
+        # if employee_id in department.list_employees():
+            department.remove_employee(employee_id)
+            print(f"[-] Employee with ID '{employee_id}' removed from the {department_name} department")
+            return
+    print(f"[X] ERROR: Employee with ID '{employee_id}' not found")
 
 def print_header():
     header = figlet_format("   E M S   ", font="banner3-D")
@@ -89,7 +103,7 @@ def user_menu():
             case 1:
                 add_employee()
             case 2:
-                print("Remove Employee")
+                remove_employee_by_id()
             case 3:
                 display_employees()
             case 4:
