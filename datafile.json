@@ -1,0 +1,26 @@
+{
+    "IT": [
+        {
+            "name": "emp3",
+            "id": "003",
+            "title": "CyberSecurity Expert"
+        }
+    ],
+    "Development": [
+        {
+            "name": "emp1",
+            "id": "001",
+            "title": "Developer"
+        }
+    ],
+    "Testing": [
+        {
+            "name": "emp4",
+            "id": "004",
+            "title": "QA Tester"
+        }
+    ],
+    "Engineering": [],
+    "Manufacturing": [],
+    "Sales": []
+}
